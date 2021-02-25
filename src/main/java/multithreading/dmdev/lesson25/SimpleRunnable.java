@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.dmdev.lesson25;
 
 public class SimpleRunnable implements Runnable{
     @Override
