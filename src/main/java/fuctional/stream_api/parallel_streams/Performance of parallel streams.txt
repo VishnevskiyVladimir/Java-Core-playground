@@ -1,0 +1,32 @@
+
+
+Parallel streams do not always increase the performance (and sometimes, decrease).
+
+There are a number of factors which significantly affect the performance of a parallel stream.
+
+* Size of data. The bigger size of data → the greater speedup.
+
+* Boxing/Unboxing. Primitive values are processed faster than boxed values.
+
+* The number of cores are available at runtime. The more available cores → the greater speedup.
+
+* Cost per element processing. The longer each element is processed → the more efficient parallelization.
+But it is not recommended to use parallel stream for performing too long operations (for example, network connections).
+So it's a kind of a trade off.
+
+* The type of data source. Usually initial data source is a collection.
+The easier it's split into parts → the greater speedup. For example, regular arrays,
+ArrayList, and IntStream.range are good sources for data splitting since they support random access.
+Others, such as LinkedList, Stream.iterate are bad sources for data splitting.
+
+* Type of operations: stateless or stateful.
+Stateless operations (for example, filter and map) are better for parallel processing than stateful operations
+(for example, distinct, sorted, limit). Operations that are based on the order of elements are especially hard for parallelizing.
+But it's not always possible to avoid them.
+
+Of course, the listed factors give us only an approximate estimate, i.e. some reference points.
+When developing a real application, you need to perform some measurements to decide whether to use parallel streams.
+Another important question is "Are you ready to spend additional server's threads on the streams?".
+
+
+
