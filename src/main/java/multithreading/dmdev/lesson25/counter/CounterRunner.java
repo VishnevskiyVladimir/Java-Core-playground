@@ -13,6 +13,7 @@ public class CounterRunner {
         CounterThread thread7 = new CounterThread( "thread7", counter);
         CounterThread thread8 = new CounterThread( "thread8", counter);
 
+        long beg = System.currentTimeMillis();
         thread1.start();
         thread2.start();
         thread3.start();
@@ -36,6 +37,7 @@ public class CounterRunner {
         }
 
         System.out.println("Expected: 8000, Actual: " +  counter.getCount());
+        System.out.println("time elapsed: " + (System.currentTimeMillis() - beg));
     }
 
 

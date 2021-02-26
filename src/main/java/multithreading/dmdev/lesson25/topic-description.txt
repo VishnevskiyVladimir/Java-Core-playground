@@ -1,0 +1,39 @@
+1. Creation of thread by extending class Thread
+2. method start()
+3. method join()
+4. switching between threads in debug mode by drop down list
+5. Creation of thread using class implementing runnable
+6. Creation of thread using lambda
+7. Ctrl + p = hotkey showing list of parameters od available constructors, or overloaded methods
+8. Getting state of a thread
+
+counter package
+
+commit c48d839b4a9140a4bdd1bf31908e1b1d5b5f41a6 - example of multithreading errors because of non atomic operations
+
+count++ is:
+1) read val
+2) increment
+3) write new val
+
+Some counts can be lost, because some of those operations are carried out simultaneously by two or more threads.
+
+
+commit XXXNEXTXXX - example of using synchronized
+
+synchronized - protection of code from simultaneous using by more than one thread.
+
+when one thread goes in synchronized method or block it takes monitor of the object. Other threads cannot wait until the monitor is released.
+
+It can be said that synchronized made method atomic.
+
+All modifications made by thread which took the monitor are guaranteed to be visible to other objects.
+
+In comparison with volatile synchronized is heavier way of protection, because operations of taking and releasing of a monitor reduce performance.
+
+A synchronized block is sometimes better because it allows you to:
+
+1.Synchronize on a different object
+2.Limit the scope of synchronization
+
+So if you want to lock the whole object, use can use eiter a synchronized method or block. If you want to keep other parts of the object accessible to other threads, use synchronized block
