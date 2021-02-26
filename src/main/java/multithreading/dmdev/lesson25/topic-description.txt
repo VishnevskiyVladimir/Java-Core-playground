@@ -48,7 +48,7 @@ Exception in thread "Thread-6" java.lang.ArrayIndexOutOfBoundsException: 4164
 
 Of course we can synchronize on list object in our thread. And it will solve a problem with errors in our case.
 ==============================================================================================================
-commit XXXXX - example of using thread safety collections
+commit 30197ad6eaa6e4eb1a04f63b8a1bc7e089437645 - example of using thread safety collections
 
 However even if list.add(i) is in synchronized block in listThread, it can still be called from another thread, for instance ListThread2.
 
@@ -59,3 +59,17 @@ We have to ways to solve the problem.
 1) use wrapper for our collection from Collections util class. (Collections.SynchronizedList()) - but its not the bet way, because of synchronization itself. It should be used for example if collection is already exists and we cannot change it.
 
 2) Use coolections from java.util.concurrent - will be explained further
+==============================================================================================================
+Add example of using volatile
+
+Sometimes we have such output:
+Still false
+Still false
+set true
+Still false
+Still false
+Still false
+
+That is because sometimes threads take value of flag from their caches instead of ram. Because of that they can miss changing of the variable
+
+Volatile defines that variable will not be cached (always will be in ram).
