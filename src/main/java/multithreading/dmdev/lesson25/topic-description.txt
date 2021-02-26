@@ -8,7 +8,7 @@
 8. Getting state of a thread
 
 counter package
-
+=====================================================================================================================
 commit c48d839b4a9140a4bdd1bf31908e1b1d5b5f41a6 - example of multithreading errors because of non atomic operations
 
 count++ is:
@@ -17,9 +17,8 @@ count++ is:
 3) write new val
 
 Some counts can be lost, because some of those operations are carried out simultaneously by two or more threads.
-
-
-commit XXXNEXTXXX - example of using synchronized
+=====================================================================================================================
+commit 5d10c0a2c352e646a8ea9e332f873e00db980120 - example of using synchronized
 
 synchronized - protection of code from simultaneous using by more than one thread.
 
@@ -37,3 +36,26 @@ A synchronized block is sometimes better because it allows you to:
 2.Limit the scope of synchronization
 
 So if you want to lock the whole object, use can use eiter a synchronized method or block. If you want to keep other parts of the object accessible to other threads, use synchronized block
+
+==============================================================================================================
+commit 9e43ce8889546b92dfdb203eedd5e58af3cbe85b - example of what can happen if collection is not synchronized
+
+Sometimes there are such exceptions:
+
+Exception in thread "Thread-6" java.lang.ArrayIndexOutOfBoundsException: 4164
+	at java.util.ArrayList.add(ArrayList.java:463)
+	at multithreading.dmdev.lesson25.list.ListThread.run(ListThread.java:16)
+
+Of course we can synchronize on list object in our thread. And it will solve a problem with errors in our case.
+==============================================================================================================
+commit XXXXX - example of using thread safety collections
+
+However even if list.add(i) is in synchronized block in listThread, it can still be called from another thread, for instance ListThread2.
+
+The main problem that method add in ArrayList class is not synchronized.
+
+We have to ways to solve the problem.
+
+1) use wrapper for our collection from Collections util class. (Collections.SynchronizedList()) - but its not the bet way, because of synchronization itself. It should be used for example if collection is already exists and we cannot change it.
+
+2) Use coolections from java.util.concurrent - will be explained further

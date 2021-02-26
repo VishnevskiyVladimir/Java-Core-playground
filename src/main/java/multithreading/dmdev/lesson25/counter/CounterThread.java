@@ -2,7 +2,7 @@ package multithreading.dmdev.lesson25.counter;
 
 public class CounterThread extends Thread{
 
-    private Counter counter;
+    private final Counter counter;
 
     public CounterThread(String name, Counter counter) {
         super(name);
