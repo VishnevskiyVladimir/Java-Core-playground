@@ -86,8 +86,18 @@ Rule 3 - Immutable objects are thread-safety. Immutable object should return a n
 Rule 4 - Synchronized methods and blocks are safety. So use the keyword, or use Wrappers like SynchronizedList
 
 ==============================================================================================================
-commit XXX - example of using queue as common resource. Migration from 1.8 to OpenJDK 1.15
+commit 7b4262482c1be6722991816dcf75966e88230b74 - example of using queue as common resource. Migration from 1.8 to OpenJDK 1.15
 
 Good example how to creat threads in stream.
 
 Sometimes two Threads can remove the same cashbox and it will lead to exception.
+
+==============================================================================================================
+commit XXX - example of using wait(),notify(),notifyAll()
+
+Those methods can only be used in synchronized blocks.
+
+wait() - thread releases monitor and pauses until is notified
+wait(timemillis) - thread releases monitor and pauses on specified time
+notify()- notification of a random thread
+notifyAll()- notification of all threads
