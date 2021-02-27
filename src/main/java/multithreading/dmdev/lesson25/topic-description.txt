@@ -93,7 +93,7 @@ Good example how to creat threads in stream.
 Sometimes two Threads can remove the same cashbox and it will lead to exception.
 
 ==============================================================================================================
-commit XXX - example of using wait(),notify(),notifyAll()
+commit b3a7068316995579358cffb02045406c84d936e3 - example of using wait(),notify(),notifyAll()
 
 Those methods can only be used in synchronized blocks.
 
@@ -101,3 +101,10 @@ wait() - thread releases monitor and pauses until is notified
 wait(timemillis) - thread releases monitor and pauses on specified time
 notify()- notification of a random thread
 notifyAll()- notification of all threads
+==============================================================================================================
+commit XXX - example of deadlock
+
+sometimes program does not finish.
+
+thread1 holds account1 waits releasing of account2.
+thread2 holds account2 waits releasing of account1.
