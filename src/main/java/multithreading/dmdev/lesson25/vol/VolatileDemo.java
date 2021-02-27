@@ -1,10 +1,14 @@
 package multithreading.dmdev.lesson25.vol;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class VolatileDemo {
     private static boolean flag = false;
     //private static volatile boolean flag = false;
 
     public static void main(String[] args) {
+
         Thread thread1 = new Thread(() -> {
             while (!flag) {
                 System.out.println("Still false");

@@ -60,7 +60,7 @@ We have to ways to solve the problem.
 
 2) Use coolections from java.util.concurrent - will be explained further
 ==============================================================================================================
-Add example of using volatile
+commit 1042ba00379de71808c866fb9db79047a8abe30c -  example of using volatile
 
 Sometimes we have such output:
 Still false
@@ -73,3 +73,21 @@ Still false
 That is because sometimes threads take value of flag from their caches instead of ram. Because of that they can miss changing of the variable
 
 Volatile defines that variable will not be cached (always will be in ram).
+==============================================================================================================
+About thread-safety objects
+
+Rule 1 -  Local variables are thread safety. So first way is just avoiding sharing common resources among threads.
+
+Rule 2 - Math, Arrays, Collections and other utilities classes are thread-safety, because they dont contain variable fields (only methods and final fields)
+
+Rule 3 - Immutable objects are thread-safety. Immutable object should return a new object when you try to change it, or be read only.
+            With read only objects we should be careful. Getters return links and through those links objects can be changed.
+            Solution - returning a new object (copy of inner field) even by getter.
+Rule 4 - Synchronized methods and blocks are safety. So use the keyword, or use Wrappers like SynchronizedList
+
+==============================================================================================================
+commit XXX - example of using queue as common resource. Migration from 1.8 to OpenJDK 1.15
+
+Good example how to creat threads in stream.
+
+Sometimes two Threads can remove the same cashbox and it will lead to exception.
