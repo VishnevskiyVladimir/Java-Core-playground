@@ -102,9 +102,14 @@ wait(timemillis) - thread releases monitor and pauses on specified time
 notify()- notification of a random thread
 notifyAll()- notification of all threads
 ==============================================================================================================
-commit XXX - example of deadlock
+commit 9cc27b5ed43e659976474b372ebcb488c8c42046 - example of deadlock
 
 sometimes program does not finish.
 
 thread1 holds account1 waits releasing of account2.
 thread2 holds account2 waits releasing of account1.
+
+==============================================================================================================
+commit XXX - Multithreading practice
+
+Solving a task
