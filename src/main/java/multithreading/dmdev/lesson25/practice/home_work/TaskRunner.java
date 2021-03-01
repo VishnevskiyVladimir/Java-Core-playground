@@ -5,6 +5,7 @@ import multithreading.dmdev.lesson25.practice.home_work.model.Dump;
 import multithreading.dmdev.lesson25.practice.home_work.model.RobotParts;
 import multithreading.dmdev.lesson25.practice.home_work.threaad.Factory;
 import multithreading.dmdev.lesson25.practice.home_work.threaad.Night;
+import multithreading.dmdev.lesson25.practice.home_work.threaad.Scientist;
 import multithreading.dmdev.lesson25.practice.home_work.util.RandomUtil;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class TaskRunner {
 
         Night night = new Night();
         Dump dump = new Dump(getInitialParts());
+        Scientist tesla = new Scientist("Tesla", night, dump);
         Factory factory = new Factory(night, dump);
 
 
@@ -23,10 +25,12 @@ public class TaskRunner {
 
         long beg = System.currentTimeMillis();
         night.start();
-        factory.start();
+        //factory.start();
+        tesla.start();
         try {
             night.join();
-            factory.join();
+            tesla.join();
+            //factory.join();
             System.out.println("time elapsed " + (System.currentTimeMillis() - beg));
         } catch (InterruptedException e) {
             e.printStackTrace();
