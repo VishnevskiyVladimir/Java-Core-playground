@@ -23,7 +23,6 @@ public class Dump {
     }
 
     public RobotParts removeRandomPart() {
-        //TODO:Test removing of all parts without NPE by one thread
         int index = RandomUtil.getRandomInt(dump.size());
         return dump.remove(index);
     }
@@ -44,5 +43,9 @@ public class Dump {
 
     public Object getLock() {
         return lock;
+    }
+
+    public List<RobotParts> getDump() {
+        return new ArrayList<>(dump);
     }
 }

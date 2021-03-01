@@ -17,5 +17,8 @@ public final class RandomUtil {
     public static int getRandomInt(int bound) {
         return random.nextInt(bound);
     }
+    public static int getRandomIntStartingFromOne(int bound) {
+        return random.nextInt(bound) + 1;
+    }
 
 }
