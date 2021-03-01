@@ -4,7 +4,7 @@ public final class NightConstant {
     private NightConstant() {
     }
 
-    public static final int AMOUNT_OF_NIGHTS = 20;
+    public static final int AMOUNT_OF_NIGHTS = 100;
     public static final int NIGHT_DURATION = 100; // in milliseconds
 
 }

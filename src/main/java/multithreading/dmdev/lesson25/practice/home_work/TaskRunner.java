@@ -18,19 +18,20 @@ public class TaskRunner {
         Night night = new Night();
         Dump dump = new Dump(getInitialParts());
         Scientist tesla = new Scientist("Tesla", night, dump);
+        Scientist einstein = new Scientist("Einstein", night, dump);
         Factory factory = new Factory(night, dump);
-
-
 
 
         long beg = System.currentTimeMillis();
         night.start();
-        //factory.start();
+        factory.start();
         tesla.start();
+        einstein.start();
         try {
             night.join();
             tesla.join();
-            //factory.join();
+            einstein.join();
+            factory.join();
             System.out.println("time elapsed " + (System.currentTimeMillis() - beg));
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -41,7 +42,7 @@ public class TaskRunner {
 
     private static List<RobotParts> getInitialParts() {
         return IntStream
-                .rangeClosed(1, 20)
+                .rangeClosed(1, 80)
                 .mapToObj(x -> RobotParts.getRandomPart())
                 .collect(Collectors.toList());
     }

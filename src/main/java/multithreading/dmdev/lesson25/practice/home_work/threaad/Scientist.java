@@ -32,16 +32,20 @@ public class Scientist extends Thread {
     }
 
     private void throwAssistantForParts() {
-        int partsAmountThisNight = getAmountThisNight();
+        int partsAmountThisNight;
+        synchronized (dump.getLock()) {
+
+            partsAmountThisNight = getAmountThisNight();
 
             for (int i = 0; i < partsAmountThisNight; i++) {
                 RobotParts collectedPart = dump.removeRandomPart();
                 collectedParts.add(collectedPart);
             }
+            System.out.println(getName() + "'s assistant today collected " + partsAmountThisNight + " parts from dump");
+            System.out.println("Dump size is " + dump.size());
+            System.out.println(getName() + " has: " + collectedParts.size());
+        }
 
-        System.out.println(getName() + "'s assistant today collected " + partsAmountThisNight + " parts from dump");
-        System.out.println("Dump size is " + dump.size());
-        System.out.println(getName() + " has: " + collectedParts.size());
     }
 
     private int getAmountThisNight() {

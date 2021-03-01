@@ -3,13 +3,14 @@ package multithreading.dmdev.lesson25.practice.home_work.model;
 import multithreading.dmdev.lesson25.practice.home_work.util.RandomUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Dump {
 
     private final Object lock = new Object();
-    private final List<RobotParts> dump = new LinkedList<>();
+    private final List<RobotParts> dump = Collections.synchronizedList(new ArrayList<>());
 
     public Dump() {
     }
