@@ -1,0 +1,15 @@
+commit 03739fdd9094decb715a0428a0f9e113f1fb58a6 - example of AtomicInteger
+
+For basement taken example from counter package of lesson 25. Used atomicInteger instead of int.
+
+AtomicInteger - thread safety wrapper with atomic operations. It's not synchronized inside.
+
+Instead of this it uses CAS (compare and set/swap). CAS increment:
+1. reading value
+2. Checking in cycle if read value changed by another thread or not. If changed - reading again. If not - modifying.
+
+====================================================================================================================
+
+commit XXXX -  example of using Lock
+
+Solved deadlock problem from lesson 25 package

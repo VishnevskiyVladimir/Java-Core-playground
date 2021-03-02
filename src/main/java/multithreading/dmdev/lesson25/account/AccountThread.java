@@ -11,7 +11,7 @@ public class AccountThread extends Thread {
 
     @Override
     public void run() {
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 8000; i++) {
             synchronized (accountTo) {
                 synchronized (accountFrom) {
                     if (accountFrom.takeMoney(10)) {
