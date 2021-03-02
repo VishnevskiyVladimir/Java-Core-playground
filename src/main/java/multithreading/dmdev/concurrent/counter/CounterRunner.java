@@ -1,4 +1,4 @@
-package multithreading.dmdev.lesson25.counter;
+package multithreading.dmdev.concurrent.counter;
 
 public class CounterRunner {
 
