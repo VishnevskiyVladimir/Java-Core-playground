@@ -18,4 +18,5 @@ public enum RobotParts {
     public static RobotParts getRandomPart(){
         return RobotParts.values()[RandomUtil.getRandomInt(9)];
     }
+
 }

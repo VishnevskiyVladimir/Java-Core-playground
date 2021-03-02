@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TaskRunner {
+
+    public static final int INITIAL_AMOUNT_OF_PARTS_IN_DUMP = 20;
+
     public static void main(String[] args) {
 
         Night night = new Night();
@@ -42,7 +45,7 @@ public class TaskRunner {
 
     private static List<RobotParts> getInitialParts() {
         return IntStream
-                .rangeClosed(1, 80)
+                .rangeClosed(1, INITIAL_AMOUNT_OF_PARTS_IN_DUMP)
                 .mapToObj(x -> RobotParts.getRandomPart())
                 .collect(Collectors.toList());
     }

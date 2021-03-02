@@ -6,12 +6,15 @@ import multithreading.dmdev.lesson25.practice.home_work.util.NightConstant;
 import multithreading.dmdev.lesson25.practice.home_work.util.RandomUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Scientist extends Thread {
     private final Night night;
     private final Dump dump;
-    private final List<RobotParts> collectedParts;
+    private final Map<RobotParts,Integer> collectedParts;
+
 
     public static final int MAX_AMOUNT_OF_PARTS_PER_NIGHT = 4;
 
@@ -19,7 +22,10 @@ public class Scientist extends Thread {
         super(name);
         this.night = night;
         this.dump = dump;
-        collectedParts = new ArrayList<>();
+        collectedParts = new HashMap<>();
+        for (int i = 0; i < RobotParts.values().length; i++) {
+            collectedParts.put(RobotParts.values()[i],0);
+        }
     }
 
     @Override
@@ -33,19 +39,36 @@ public class Scientist extends Thread {
 
     private void throwAssistantForParts() {
         int partsAmountThisNight;
+        int alreadyCollectedOfTheKind;
+
         synchronized (dump.getLock()) {
 
             partsAmountThisNight = getAmountThisNight();
-
             for (int i = 0; i < partsAmountThisNight; i++) {
                 RobotParts collectedPart = dump.removeRandomPart();
-                collectedParts.add(collectedPart);
+                alreadyCollectedOfTheKind = collectedParts.get(collectedPart);
+                collectedParts.put(collectedPart, ++alreadyCollectedOfTheKind);
             }
+
+
             System.out.println(getName() + "'s assistant today collected " + partsAmountThisNight + " parts from dump");
             System.out.println("Dump size is " + dump.size());
-            System.out.println(getName() + " has: " + collectedParts.size());
+            System.out.println(getName() + " got from his assistant: " + collectedParts.entrySet() +
+                    ". Out of them he made " + countRobots() + " robots.");
         }
 
+    }
+
+    private int countRobots() {
+        int curRobotsCounter = collectedParts.get(RobotParts.values()[0]);
+        int curPartCounter;
+        for (int i = 1; i < RobotParts.values().length; i++) {
+            curPartCounter = collectedParts.get(RobotParts.values()[i]);
+            if(curRobotsCounter > curPartCounter) {
+                curRobotsCounter = curPartCounter;
+            }
+        }
+        return curRobotsCounter;
     }
 
     private int getAmountThisNight() {
