@@ -1,0 +1,115 @@
+1. Creation of thread by extending class Thread
+2. method start()
+3. method join()
+4. switching between threads in debug mode by drop down list
+5. Creation of thread using class implementing runnable
+6. Creation of thread using lambda
+7. Ctrl + p = hotkey showing list of parameters od available constructors, or overloaded methods
+8. Getting state of a thread
+
+counter package
+=====================================================================================================================
+commit c48d839b4a9140a4bdd1bf31908e1b1d5b5f41a6 - example of multithreading errors because of non atomic operations
+
+count++ is:
+1) read val
+2) increment
+3) write new val
+
+Some counts can be lost, because some of those operations are carried out simultaneously by two or more threads.
+=====================================================================================================================
+commit 5d10c0a2c352e646a8ea9e332f873e00db980120 - example of using synchronized
+
+synchronized - protection of code from simultaneous using by more than one thread.
+
+when one thread goes in synchronized method or block it takes monitor of the object. Other threads cannot wait until the monitor is released.
+
+It can be said that synchronized made method atomic.
+
+All modifications made by thread which took the monitor are guaranteed to be visible to other objects.
+
+In comparison with volatile synchronized is heavier way of protection, because operations of taking and releasing of a monitor reduce performance.
+
+A synchronized block is sometimes better because it allows you to:
+
+1.Synchronize on a different object
+2.Limit the scope of synchronization
+
+So if you want to lock the whole object, use can use eiter a synchronized method or block. If you want to keep other parts of the object accessible to other threads, use synchronized block
+
+==============================================================================================================
+commit 9e43ce8889546b92dfdb203eedd5e58af3cbe85b - example of what can happen if collection is not synchronized
+
+Sometimes there are such exceptions:
+
+Exception in thread "Thread-6" java.lang.ArrayIndexOutOfBoundsException: 4164
+	at java.util.ArrayList.add(ArrayList.java:463)
+	at multithreading.dmdev.lesson25_low_level_work.list.ListThread.run(ListThread.java:16)
+
+Of course we can synchronize on list object in our thread. And it will solve a problem with errors in our case.
+==============================================================================================================
+commit 30197ad6eaa6e4eb1a04f63b8a1bc7e089437645 - example of using thread safety collections
+
+However even if list.add(i) is in synchronized block in listThread, it can still be called from another thread, for instance ListThread2.
+
+The main problem that method add in ArrayList class is not synchronized.
+
+We have to ways to solve the problem.
+
+1) use wrapper for our collection from Collections util class. (Collections.SynchronizedList()) - but its not the bet way, because of synchronization itself. It should be used for example if collection is already exists and we cannot change it.
+
+2) Use coolections from java.util.concurrent - will be explained further
+==============================================================================================================
+commit 1042ba00379de71808c866fb9db79047a8abe30c -  example of using volatile
+
+Sometimes we have such output:
+Still false
+Still false
+set true
+Still false
+Still false
+Still false
+
+That is because sometimes threads take value of flag from their caches instead of ram. Because of that they can miss changing of the variable
+
+Volatile defines that variable will not be cached (always will be in ram).
+==============================================================================================================
+About thread-safety objects
+
+Rule 1 -  Local variables are thread safety. So first way is just avoiding sharing common resources among threads.
+
+Rule 2 - Math, Arrays, Collections and other utilities classes are thread-safety, because they dont contain variable fields (only methods and final fields)
+
+Rule 3 - Immutable objects are thread-safety. Immutable object should return a new object when you try to change it, or be read only.
+            With read only objects we should be careful. Getters return links and through those links objects can be changed.
+            Solution - returning a new object (copy of inner field) even by getter.
+Rule 4 - Synchronized methods and blocks are safety. So use the keyword, or use Wrappers like SynchronizedList
+
+==============================================================================================================
+commit 7b4262482c1be6722991816dcf75966e88230b74 - example of using queue as common resource. Migration from 1.8 to OpenJDK 1.15
+
+Good example how to creat threads in stream.
+
+Sometimes two Threads can remove the same cashbox and it will lead to exception.
+
+==============================================================================================================
+commit b3a7068316995579358cffb02045406c84d936e3 - example of using wait(),notify(),notifyAll()
+
+Those methods can only be used in synchronized blocks.
+
+wait() - thread releases monitor and pauses until is notified
+wait(timemillis) - thread releases monitor and pauses on specified time
+notify()- notification of a random thread
+notifyAll()- notification of all threads
+==============================================================================================================
+commit 9cc27b5ed43e659976474b372ebcb488c8c42046 - example of deadlock
+
+sometimes program does not finish.
+
+thread1 holds account1 waits releasing of account2.
+thread2 holds account2 waits releasing of account1.
+
+==============================================================================================================
+commit XXX - Multithreading practice
+
+Solving a task
