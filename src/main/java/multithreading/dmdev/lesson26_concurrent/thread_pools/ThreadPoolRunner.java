@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class Runner {
+public class ThreadPoolRunner {
     public static void main(String[] args) {
         Queue<Runnable> tasks = new ArrayDeque<>();
         Runnable task1 = () -> System.out.println("Task #1 is running");
